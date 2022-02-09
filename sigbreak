@@ -1,0 +1,24 @@
+#!/bin/bash
+
+workdir=$(pwd)
+name=$(basename $(pwd))
+check_name=`docker ps -a | grep $name`
+
+if [[ "$1" == "stop" ]]; then
+	docker stop $name
+	exit
+fi
+
+if [[ -z $check_name ]]; then
+	docker run -d \
+		--rm \
+		-h $(basename $(pwd)) \
+		--name $(basename $(pwd)) \
+		-v $(pwd):/ctf/work \
+		-p 23946:23946 \
+		--cap-add=SYS_PTRACE \
+		--cap-add=SYSLOG \
+		pwntainer:20.04
+fi
+
+docker exec -it $name /bin/bash
