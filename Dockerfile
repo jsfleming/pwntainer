@@ -33,7 +33,7 @@ RUN python3 -m pip install -U pip && \
 	ropper \
 	pwntools \
 	z3-solver \
-	unicorn \
+	unicorn==1.0.2rc4 \
 	keystone-engine \
 	capstone \
 	angr \
@@ -54,7 +54,7 @@ RUN git clone https://github.com/pwndbg/pwndbg && \
 
 RUN git clone https://github.com/longld/peda.git ~/peda
 
-RUN wget -q -O ~/.gdbinit-gef.py https://github.com/hugsy/gef/raw/master/gef.py
+RUN wget -q -O ~/.gdbinit-gef.py https://gef.blah.cat/py
 
 COPY .gdbinit /root/
 COPY gdb-pwndbg /usr/bin/
